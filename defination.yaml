@@ -1,0 +1,33 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: CompositeResourceDefinition
+metadata:
+  name: xsqsqueues.message.example.org
+spec:
+  group: message.example.org
+  names:
+    kind: XSQSQueue
+    plural: xsqsqueues
+  claimNames:
+    kind: SQSQueue
+    plural: sqsqueues
+  versions:
+  - name: v1alpha1
+    served: true
+    referenceable: true
+    schema:
+      openAPIV3Schema:
+        type: object
+        properties:
+          spec:
+            type: object
+            properties:
+              parameters:
+                type: object
+                properties:
+                  name:
+                    type: string
+                required:
+                  - name
+
+            required:
+              - parameters

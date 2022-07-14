@@ -1,0 +1,27 @@
+apiVersion: apiextensions.crossplane.io/v1
+kind: Composition
+metadata:
+  name: xsqsqueues.aws.message.example.org
+  labels:
+    provider: aws
+spec:
+  compositeTypeRef:
+    apiVersion: message.example.org/v1alpha1
+    kind: XSQSQueue
+  resources:
+    - name: sqsqueue
+      base:
+        apiVersion: sqs.aws.crossplane.io/v1beta1
+        kind: Queue
+        metadata:
+          name: some-queue
+        spec:
+          forProvider:
+            region: us-east-1
+            name: sample-queue
+            delaySeconds: 100
+            visibilityTimeout: 50
+        patches:
+          - fromFieldPath: "spec.parameters.name"
+            toFieldPath: "spec.forProvider.displayName"
+        

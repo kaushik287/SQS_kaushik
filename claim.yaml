@@ -1,0 +1,10 @@
+apiVersion: message.example.org/v1alpha1
+kind: SQSQueue
+metadata:
+  name: kaushik-queue
+spec:
+  parameters:
+    name: DemoQueue
+  compositionSelector:
+    matchLabels:
+      provider: aws
